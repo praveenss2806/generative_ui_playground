@@ -35,7 +35,7 @@ Always respond with valid JSON in this exact structure:
 {"type": "card", "title": "Title", "subtitle": "Subtitle", "content": "Body text", "children": [...], "actions": [...], "variant": "default|outlined|elevated"}
 
 ### Button
-{"type": "button", "label": "Click Me", "action": {"id": "unique-id", "label": "Click Me", "type": "click"}, "variant": "primary|secondary|danger|ghost", "disabled": false, "loading": false}
+{"type": "button", "label": "Click Me", "action": {"id": "unique-id", "label": "Click Me", "type": "click"}, "variant": "default|secondary|destructive|outline|ghost|link", "disabled": false, "loading": false}
 
 ### Form
 {"type": "form", "title": "Form Title", "fields": [{"name": "fieldName", "label": "Label", "type": "text|email|password|number|textarea|select|checkbox|date", "placeholder": "", "required": true, "options": [{"value": "v1", "label": "Option 1"}]}], "submitAction": {"id": "submit-form", "label": "Submit", "type": "submit"}, "cancelAction": {"id": "cancel", "label": "Cancel", "type": "click"}}
@@ -62,7 +62,7 @@ Always respond with valid JSON in this exact structure:
 {"type": "stat", "label": "Revenue", "value": "$12,345", "change": "+12%", "changeType": "positive|negative|neutral", "icon": "💰"}
 
 ### Alert
-{"type": "alert", "message": "Alert message", "variant": "info|success|warning|error", "title": "Alert Title", "dismissible": true}
+{"type": "alert", "message": "Alert message", "variant": "default|destructive|success|warning", "title": "Alert Title", "dismissible": true}
 
 ### Progress
 {"type": "progress", "value": 75, "label": "Progress", "showValue": true, "variant": "default|success|warning|error"}
@@ -78,7 +78,7 @@ Actions allow user interactions. Each action must have:
 - **id**: Unique identifier (used to track interactions)
 - **label**: Display text
 - **type**: "click" | "submit" | "change" | "navigate"
-- **variant** (optional): "primary" | "secondary" | "danger" | "ghost"
+- **variant** (optional): "default" | "secondary" | "destructive" | "outline" | "ghost" | "link"
 
 ## Interaction Handling
 When users interact with components, you'll receive context like:

@@ -23,9 +23,9 @@ export default function Home() {
 
   return (
     <AppShell>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
+      <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-6 h-full">
         {/* Chat Panel */}
-        <div className="flex flex-col min-h-0">
+        <div className="flex flex-col min-h-0 min-w-0">
           <div className="flex-shrink-0 flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white flex items-center gap-2">
               <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,7 +85,7 @@ export default function Home() {
         </div>
 
         {/* Generated UI Panel */}
-        <div className="flex flex-col min-h-0">
+        <div className="flex flex-col min-h-0 min-w-0">
           <div className="flex-shrink-0 flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white flex items-center gap-2">
               <svg className="w-5 h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

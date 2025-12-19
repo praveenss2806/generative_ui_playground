@@ -5,7 +5,7 @@ export const ActionSchema = z.object({
   id: z.string().describe('Unique identifier for this action'),
   label: z.string().describe('Display label for the action'),
   type: z.enum(['click', 'submit', 'change', 'navigate']).describe('Type of action'),
-  variant: z.enum(['primary', 'secondary', 'danger', 'ghost']).optional().describe('Visual variant'),
+  variant: z.enum(['default', 'secondary', 'destructive', 'outline', 'ghost', 'link']).optional().describe('Visual variant'),
 });
 
 export type Action = z.infer<typeof ActionSchema>;
@@ -63,7 +63,7 @@ export const ButtonComponentSchema = z.object({
   type: z.literal('button'),
   label: z.string(),
   action: ActionSchema,
-  variant: z.enum(['primary', 'secondary', 'danger', 'ghost']).optional(),
+  variant: z.enum(['default', 'secondary', 'destructive', 'outline', 'ghost', 'link']).optional(),
   disabled: z.boolean().optional(),
   loading: z.boolean().optional(),
 });
@@ -127,7 +127,7 @@ export const StatComponentSchema = z.object({
 export const AlertComponentSchema = z.object({
   type: z.literal('alert'),
   message: z.string(),
-  variant: z.enum(['info', 'success', 'warning', 'error']),
+  variant: z.enum(['default', 'destructive', 'success', 'warning']),
   title: z.string().optional(),
   dismissible: z.boolean().optional(),
 });
