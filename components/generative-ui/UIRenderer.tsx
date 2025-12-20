@@ -134,8 +134,18 @@ function TextRenderer({ component }: { component: Extract<UIComponent, { type: '
   const variant = component.variant || 'body';
   const Tag = variant === 'heading' ? 'h2' : variant === 'subheading' ? 'h3' : 'p';
 
+  // Use accent dot for headings instead of gradient text (avoids coloring emojis)
+  if (variant === 'heading') {
+    return (
+      <Tag className={cn(variantClasses[variant], 'break-words flex items-center gap-2')}>
+        <span className="w-2 h-2 rounded-full bg-gradient-to-r from-primary to-purple-500 flex-shrink-0" />
+        {component.content}
+      </Tag>
+    );
+  }
+
   return (
-    <Tag className={cn(variantClasses[variant], 'break-words', variant === 'heading' && 'gradient-text')}>
+    <Tag className={cn(variantClasses[variant], 'break-words')}>
       {component.content}
     </Tag>
   );
@@ -180,33 +190,35 @@ function CardRenderer({
   component: Extract<UIComponent, { type: 'card' }>;
   onAction: ActionHandler;
 }) {
+  const hasHeader = component.title || component.subtitle;
+  const hasFooter = component.actions && component.actions.length > 0;
+
   return (
-    <Card className={cn(
-      'overflow-hidden',
-      component.variant === 'elevated' && 'shadow-soft-lg'
-    )}>
-      {(component.title || component.subtitle) && (
-        <CardHeader className="border-b border-border">
+    <Card className={cn(component.variant === 'elevated' && 'shadow-soft-lg')}>
+      {hasHeader && (
+        <CardHeader className={hasFooter || component.content || component.children ? 'border-b border-border pb-4' : ''}>
           {component.title && (
             <CardTitle className="text-foreground font-semibold flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-purple-500" />
-              {component.title}
+              <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-purple-500 flex-shrink-0" />
+              <span className="truncate">{component.title}</span>
             </CardTitle>
           )}
-          {component.subtitle && <CardDescription className="text-muted-foreground">{component.subtitle}</CardDescription>}
+          {component.subtitle && <CardDescription className="text-muted-foreground truncate">{component.subtitle}</CardDescription>}
         </CardHeader>
       )}
-      <CardContent className="pt-4">
-        {component.content && <p className="text-muted-foreground text-sm">{component.content}</p>}
-        {component.children && (
-          <div className="space-y-4">
-            {component.children.map((child, idx) => renderComponent(child, onAction, idx))}
-          </div>
-        )}
-      </CardContent>
-      {component.actions && component.actions.length > 0 && (
+      {(component.content || component.children) && (
+        <CardContent className={cn(!hasHeader && 'pt-4 sm:pt-6', !hasFooter && '')}>
+          {component.content && <p className="text-muted-foreground text-sm break-words">{component.content}</p>}
+          {component.children && (
+            <div className="space-y-4 min-w-0">
+              {component.children.map((child, idx) => renderComponent(child, onAction, idx))}
+            </div>
+          )}
+        </CardContent>
+      )}
+      {hasFooter && (
         <CardFooter className="gap-2 flex-wrap border-t border-border pt-4">
-          {component.actions.map((action) => (
+          {component.actions!.map((action) => (
             <Button
               key={action.id}
               variant={action.variant || 'default'}

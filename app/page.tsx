@@ -49,23 +49,33 @@ export default function Home() {
           ) : hasUI ? (
             /* Generated UI Preview */
             <div className="flex-1 min-h-0 flex flex-col animate-fadeIn">
-              {/* Sandbox Container */}
-              <div className="flex-1 min-h-0 bg-card border border-border rounded-2xl shadow-soft overflow-hidden flex flex-col">
-                {/* Sandbox Header */}
-                <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-border bg-muted/30">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <span className="text-lg">🎨</span>
-                    <h2 className="text-sm font-semibold text-foreground truncate">Generated UI</h2>
+              {/* Sandbox Wrapper for loading border effect */}
+              <div className={`flex-1 min-h-0 flex flex-col rounded-2xl ${isLoading ? 'loading-border' : ''}`}>
+                {/* Sandbox Container */}
+                <div className="flex-1 min-h-0 bg-card border border-border rounded-2xl shadow-soft overflow-hidden flex flex-col">
+                  {/* Sandbox Header */}
+                  <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-border bg-muted/30">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="text-lg">🎨</span>
+                      <h2 className="text-sm font-semibold text-foreground truncate">Generated UI</h2>
+                    </div>
+                    {isLoading ? (
+                      <div className="flex-shrink-0 flex items-center gap-2 px-2.5 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                        <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
+                        <span>Updating...</span>
+                      </div>
+                    ) : (
+                      <span className="flex-shrink-0 px-2.5 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                        {currentUI.length} component{currentUI.length !== 1 ? 's' : ''}
+                      </span>
+                    )}
                   </div>
-                  <span className="flex-shrink-0 px-2.5 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
-                    {currentUI.length} component{currentUI.length !== 1 ? 's' : ''}
-                  </span>
-                </div>
-                
-                {/* Sandbox Content */}
-                <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6">
-                  <div className="max-w-4xl mx-auto">
-                    <UIRenderer components={currentUI} onAction={handleInteraction} />
+                  
+                  {/* Sandbox Content */}
+                  <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6">
+                    <div className="max-w-4xl mx-auto">
+                      <UIRenderer components={currentUI} onAction={handleInteraction} />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -147,26 +157,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* Toggle history button */}
-          {hasMessages && (
-            <button
-              onClick={() => setIsChatExpanded(!isChatExpanded)}
-              className="mb-3 mx-auto flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium
-                bg-secondary/50 border border-border text-muted-foreground hover:text-foreground hover:bg-secondary
-                transition-all duration-200"
-            >
-              <svg 
-                className={`w-3.5 h-3.5 transition-transform duration-300 ${isChatExpanded ? 'rotate-180' : ''}`} 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-              </svg>
-              <span>{isChatExpanded ? 'Hide' : 'Show'} history ({messages.length})</span>
-            </button>
-          )}
-
           {/* Chat Input */}
           <div className="max-w-3xl mx-auto w-full">
             <ChatInput
@@ -174,6 +164,10 @@ export default function Home() {
               onChange={setInput}
               onSubmit={() => sendMessage(input)}
               isLoading={isLoading}
+              hasMessages={hasMessages}
+              messageCount={messages.length}
+              isHistoryExpanded={isChatExpanded}
+              onToggleHistory={() => setIsChatExpanded(!isChatExpanded)}
             />
           </div>
         </div>
