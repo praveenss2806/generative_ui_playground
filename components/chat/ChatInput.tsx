@@ -19,7 +19,7 @@ export function ChatInput({ value, onChange, onSubmit, isLoading, placeholder }:
     const textarea = textareaRef.current;
     if (textarea) {
       textarea.style.height = 'auto';
-      textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`;
+      textarea.style.height = `${Math.min(textarea.scrollHeight, 150)}px`;
     }
   }, [value]);
 
@@ -35,30 +35,30 @@ export function ChatInput({ value, onChange, onSubmit, isLoading, placeholder }:
   const hasContent = value.trim().length > 0;
 
   return (
-    <div className="relative">
-      {/* Rainbow glow effect on focus */}
+    <div className="relative w-full max-w-full">
+      {/* Glow effect on focus */}
       <div 
         className={`
-          absolute -inset-1 rounded-3xl bg-gradient-to-r from-[#FF6B9D] via-[#B47EFF] via-[#4ECDC4] to-[#FFE66D]
-          opacity-0 blur-md transition-opacity duration-500 animate-gradient-x
-          ${isFocused ? 'opacity-60' : ''}
+          absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-primary via-purple-500 to-accent
+          opacity-0 blur transition-opacity duration-300
+          ${isFocused ? 'opacity-30' : ''}
         `}
       />
       
       {/* Main container */}
       <div 
         className={`
-          relative flex items-end gap-4 p-4 rounded-2xl
-          bg-[#252542]/95 backdrop-blur-xl border-2 transition-all duration-300
-          ${isFocused ? 'border-[#FF6B9D]/50' : 'border-[#B47EFF]/20'}
+          relative flex items-end gap-2 sm:gap-3 p-3 sm:p-4 rounded-2xl
+          bg-card border transition-all duration-200
+          ${isFocused ? 'border-primary/50 shadow-soft-lg' : 'border-border shadow-soft'}
         `}
       >
-        {/* Left sparkle icon */}
+        {/* Sparkle icon */}
         <div className={`
-          flex-shrink-0 self-center transition-all duration-300
-          ${isFocused ? 'text-[#FF6B9D] scale-110' : 'text-[#A0A0C0]'}
+          flex-shrink-0 self-center transition-all duration-200
+          ${isFocused ? 'text-primary scale-110' : 'text-muted-foreground'}
         `}>
-          <span className="text-xl">✨</span>
+          <span className="text-lg sm:text-xl">✨</span>
         </div>
 
         {/* Textarea */}
@@ -70,27 +70,28 @@ export function ChatInput({ value, onChange, onSubmit, isLoading, placeholder }:
             onKeyDown={handleKeyDown}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            placeholder={placeholder || "What would you like me to create? ✨"}
+            placeholder={placeholder || "What would you like me to create?"}
             disabled={isLoading}
             rows={1}
             className="
-              w-full bg-transparent text-white placeholder-[#A0A0C0]/60
-              outline-none resize-none text-base leading-relaxed font-medium
-              disabled:opacity-50
+              w-full bg-transparent text-foreground placeholder-muted-foreground/60
+              outline-none resize-none text-sm sm:text-base leading-relaxed font-medium
+              disabled:opacity-50 border-none focus:ring-0
             "
+            style={{ boxShadow: 'none' }}
           />
           
-          {/* Hint text */}
+          {/* Hint text - hidden on mobile */}
           <div className={`
-            flex items-center gap-2 mt-2 overflow-hidden transition-all duration-300
+            hidden sm:flex items-center gap-2 mt-2 overflow-hidden transition-all duration-200
             ${isFocused && !hasContent ? 'max-h-6 opacity-100' : 'max-h-0 opacity-0'}
           `}>
-            <span className="text-xs text-[#A0A0C0]/60">Press</span>
-            <kbd className="px-2 py-0.5 text-[10px] font-mono bg-[#1A1A2E] rounded-lg text-[#FF6B9D] border border-[#FF6B9D]/30">Enter</kbd>
-            <span className="text-xs text-[#A0A0C0]/60">to send</span>
-            <span className="text-[#B47EFF]/50 mx-1">•</span>
-            <kbd className="px-2 py-0.5 text-[10px] font-mono bg-[#1A1A2E] rounded-lg text-[#B47EFF] border border-[#B47EFF]/30">Shift + Enter</kbd>
-            <span className="text-xs text-[#A0A0C0]/60">for new line</span>
+            <span className="text-xs text-muted-foreground/60">Press</span>
+            <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded text-primary border border-border">Enter</kbd>
+            <span className="text-xs text-muted-foreground/60">to send</span>
+            <span className="text-muted-foreground/30 mx-1">•</span>
+            <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded text-purple-500 border border-border">Shift + Enter</kbd>
+            <span className="text-xs text-muted-foreground/60">for new line</span>
           </div>
         </div>
 
@@ -99,30 +100,25 @@ export function ChatInput({ value, onChange, onSubmit, isLoading, placeholder }:
           onClick={onSubmit}
           disabled={isLoading || !hasContent}
           className={`
-            flex-shrink-0 relative group p-3 rounded-xl
-            transition-all duration-300 ease-out
+            flex-shrink-0 relative group p-2.5 sm:p-3 rounded-xl min-w-[44px] min-h-[44px] flex items-center justify-center
+            transition-all duration-200 ease-out
             ${hasContent && !isLoading
-              ? 'bg-gradient-to-r from-[#FF6B9D] to-[#B47EFF] shadow-lg shadow-[#FF6B9D]/30 hover:shadow-[#FF6B9D]/50 hover:scale-110 active:scale-95'
-              : 'bg-[#1A1A2E] border-2 border-[#B47EFF]/20 cursor-not-allowed'
+              ? 'bg-gradient-to-r from-primary to-purple-500 text-white shadow-md hover:shadow-lg hover:scale-105 active:scale-95'
+              : 'bg-muted border border-border text-muted-foreground cursor-not-allowed'
             }
           `}
         >
-          {/* Button glow */}
-          {hasContent && !isLoading && (
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#FF6B9D] to-[#B47EFF] blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-300" />
-          )}
-          
           {isLoading ? (
-            <div className="relative flex items-center gap-1">
-              <span className="w-2 h-2 bg-[#FF6B9D] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-              <span className="w-2 h-2 bg-[#B47EFF] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-              <span className="w-2 h-2 bg-[#4ECDC4] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+            <div className="flex items-center gap-1">
+              <span className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+              <span className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+              <span className="w-1.5 h-1.5 bg-accent rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
             </div>
           ) : (
             <svg 
               className={`
-                relative w-5 h-5 transition-all duration-300
-                ${hasContent ? 'text-white rotate-[-20deg]' : 'text-[#A0A0C0]/50'}
+                w-5 h-5 transition-all duration-200
+                ${hasContent ? 'rotate-[-20deg]' : ''}
               `} 
               fill="none" 
               viewBox="0 0 24 24" 

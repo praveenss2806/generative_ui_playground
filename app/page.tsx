@@ -34,51 +34,64 @@ export default function Home() {
 
   return (
     <AppShell>
-      <div className="flex flex-col h-full relative">
-        {/* Main Preview Area */}
-        <div className="flex-1 min-h-0 overflow-y-auto pb-32">
+      <div className="flex flex-col h-full relative px-4 sm:px-6 py-4">
+        {/* Sandbox Preview Area */}
+        <div className="flex-1 min-h-0 flex flex-col">
           {isLoading && !hasUI ? (
-            <div className="h-full flex items-center justify-center p-6">
-              <div className="w-full max-w-2xl">
-                <UIRendererSkeleton />
+            /* Loading State */
+            <div className="flex-1 flex items-center justify-center">
+              <div className="w-full max-w-2xl mx-auto">
+                <div className="bg-card border border-border rounded-2xl p-4 sm:p-6 shadow-soft">
+                  <UIRendererSkeleton />
+                </div>
               </div>
             </div>
           ) : hasUI ? (
-            <div className="p-6 animate-fadeIn">
-              {/* Component count badge */}
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">🎨</span>
-                  <h2 className="text-lg font-bold text-white">Generated UI</h2>
+            /* Generated UI Preview */
+            <div className="flex-1 min-h-0 flex flex-col animate-fadeIn">
+              {/* Sandbox Container */}
+              <div className="flex-1 min-h-0 bg-card border border-border rounded-2xl shadow-soft overflow-hidden flex flex-col">
+                {/* Sandbox Header */}
+                <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-border bg-muted/30">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-lg">🎨</span>
+                    <h2 className="text-sm font-semibold text-foreground truncate">Generated UI</h2>
+                  </div>
+                  <span className="flex-shrink-0 px-2.5 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                    {currentUI.length} component{currentUI.length !== 1 ? 's' : ''}
+                  </span>
                 </div>
-                <span className="px-3 py-1 text-xs font-semibold bg-gradient-to-r from-[#FF6B9D]/20 to-[#B47EFF]/20 text-[#FF6B9D] rounded-full border border-[#FF6B9D]/30">
-                  {currentUI.length} component{currentUI.length !== 1 ? 's' : ''}
-                </span>
+                
+                {/* Sandbox Content */}
+                <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6">
+                  <div className="max-w-4xl mx-auto">
+                    <UIRenderer components={currentUI} onAction={handleInteraction} />
+                  </div>
+                </div>
               </div>
-              <UIRenderer components={currentUI} onAction={handleInteraction} />
             </div>
           ) : (
-            /* Fun Empty State */
-            <div className="h-full flex flex-col items-center justify-center text-center p-8">
-              <div className="max-w-md">
+            /* Empty State */
+            <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
+              <div className="max-w-md w-full">
                 {/* Animated icon */}
-                <div className="relative w-32 h-32 mx-auto mb-8">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B9D]/30 to-[#B47EFF]/30 rounded-3xl rotate-6 animate-pulse" />
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#4ECDC4]/30 to-[#95E879]/30 rounded-3xl -rotate-6 animate-pulse" style={{ animationDelay: '0.5s' }} />
-                  <div className="relative w-full h-full bg-[#252542] rounded-3xl flex items-center justify-center border-2 border-[#B47EFF]/30">
-                    <span className="text-6xl animate-bounce" style={{ animationDuration: '2s' }}>🚀</span>
+                <div className="relative w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-6">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-500/20 rounded-3xl rotate-6 animate-pulse" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-green-500/20 rounded-3xl -rotate-6 animate-pulse" style={{ animationDelay: '0.5s' }} />
+                  <div className="relative w-full h-full bg-card rounded-3xl flex items-center justify-center border border-border shadow-soft">
+                    <span className="text-5xl sm:text-6xl animate-bounce" style={{ animationDuration: '2s' }}>🚀</span>
                   </div>
                 </div>
                 
-                <h2 className="text-3xl font-extrabold mb-3">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-2">
                   <span className="gradient-text">Ready to Create?</span>
                 </h2>
-                <p className="text-[#A0A0C0] mb-8 text-lg">
+                <p className="text-muted-foreground mb-6 text-sm sm:text-base">
                   Describe any UI and watch it come to life! Try one of these ideas:
                 </p>
                 
-                {/* Suggestion pills */}
-                <div className="flex flex-wrap gap-3 justify-center">
+                {/* Suggestion pills - responsive grid */}
+                <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-3 justify-center">
                   {suggestions.map((suggestion, index) => (
                     <button
                       key={suggestion.label}
@@ -86,14 +99,14 @@ export default function Home() {
                         setInput(suggestion.prompt);
                         setTimeout(() => sendMessage(suggestion.prompt), 100);
                       }}
-                      className="group flex items-center gap-2 px-4 py-2.5 rounded-2xl font-semibold text-sm 
-                        bg-[#252542]/80 border-2 border-[#B47EFF]/20 text-white
-                        hover:border-[#FF6B9D]/50 hover:bg-[#252542] hover:scale-105 hover:shadow-lg hover:shadow-[#FF6B9D]/20
-                        transition-all duration-300 animate-fadeIn"
-                      style={{ animationDelay: `${index * 100}ms` }}
+                      className="group flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-2.5 rounded-xl font-medium text-sm 
+                        bg-card border border-border text-foreground
+                        hover:border-primary/50 hover:bg-primary/5 hover:scale-[1.02]
+                        active:scale-[0.98] transition-all duration-200 animate-fadeIn"
+                      style={{ animationDelay: `${index * 75}ms` }}
                     >
-                      <span className="text-lg group-hover:scale-110 transition-transform">{suggestion.emoji}</span>
-                      <span>{suggestion.label}</span>
+                      <span className="text-base group-hover:scale-110 transition-transform">{suggestion.emoji}</span>
+                      <span className="truncate">{suggestion.label}</span>
                     </button>
                   ))}
                 </div>
@@ -103,22 +116,20 @@ export default function Home() {
         </div>
 
         {/* Bottom Command Bar */}
-        <div className="absolute bottom-0 left-0 right-0 z-40">
+        <div className="flex-shrink-0 pt-4 pb-safe">
           {/* Expandable Chat History */}
           {isChatExpanded && hasMessages && (
-            <div 
-              className="mx-4 mb-2 max-h-[40vh] overflow-y-auto rounded-2xl bg-[#1A1A2E]/95 backdrop-blur-xl border-2 border-[#B47EFF]/20 shadow-2xl animate-slideUp"
-            >
-              <div className="p-4">
+            <div className="mb-3 max-h-[35vh] overflow-y-auto rounded-xl bg-card border border-border shadow-soft-lg animate-slideUp">
+              <div className="p-3 sm:p-4">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm font-bold text-[#A0A0C0] flex items-center gap-2">
+                  <h3 className="text-xs font-semibold text-muted-foreground flex items-center gap-2">
                     <span>💬</span> Chat History
                   </h3>
                   <button
                     onClick={() => setIsChatExpanded(false)}
-                    className="p-1 rounded-lg hover:bg-[#252542] text-[#A0A0C0] hover:text-white transition-colors"
+                    className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
@@ -128,45 +139,42 @@ export default function Home() {
             </div>
           )}
 
-          {/* Command Bar Container */}
-          <div className="p-4 bg-gradient-to-t from-[#1A1A2E] via-[#1A1A2E]/95 to-transparent pt-8">
-            <div className="max-w-4xl mx-auto">
-              {/* Error display */}
-              {error && (
-                <div className="mb-3 px-4 py-2 rounded-xl bg-[#FF6B6B]/10 border border-[#FF6B6B]/30 text-[#FF6B6B] text-sm flex items-center gap-2 animate-bounceIn">
-                  <span>⚠️</span>
-                  <span>{error}</span>
-                </div>
-              )}
-
-              {/* Toggle history button */}
-              {hasMessages && (
-                <button
-                  onClick={() => setIsChatExpanded(!isChatExpanded)}
-                  className="mb-3 mx-auto flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold
-                    bg-[#252542]/80 border border-[#B47EFF]/20 text-[#A0A0C0] hover:text-white hover:border-[#B47EFF]/40
-                    transition-all duration-200"
-                >
-                  <svg 
-                    className={`w-4 h-4 transition-transform duration-300 ${isChatExpanded ? 'rotate-180' : ''}`} 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                  </svg>
-                  <span>{isChatExpanded ? 'Hide' : 'Show'} chat history ({messages.length})</span>
-                </button>
-              )}
-
-              {/* Chat Input */}
-              <ChatInput
-                value={input}
-                onChange={setInput}
-                onSubmit={() => sendMessage(input)}
-                isLoading={isLoading}
-              />
+          {/* Error display */}
+          {error && (
+            <div className="mb-3 px-4 py-2.5 rounded-xl bg-destructive/10 border border-destructive/30 text-destructive text-sm flex items-center gap-2 animate-bounceIn">
+              <span>⚠️</span>
+              <span className="break-words">{error}</span>
             </div>
+          )}
+
+          {/* Toggle history button */}
+          {hasMessages && (
+            <button
+              onClick={() => setIsChatExpanded(!isChatExpanded)}
+              className="mb-3 mx-auto flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium
+                bg-secondary/50 border border-border text-muted-foreground hover:text-foreground hover:bg-secondary
+                transition-all duration-200"
+            >
+              <svg 
+                className={`w-3.5 h-3.5 transition-transform duration-300 ${isChatExpanded ? 'rotate-180' : ''}`} 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+              </svg>
+              <span>{isChatExpanded ? 'Hide' : 'Show'} history ({messages.length})</span>
+            </button>
+          )}
+
+          {/* Chat Input */}
+          <div className="max-w-3xl mx-auto w-full">
+            <ChatInput
+              value={input}
+              onChange={setInput}
+              onSubmit={() => sendMessage(input)}
+              isLoading={isLoading}
+            />
           </div>
         </div>
       </div>

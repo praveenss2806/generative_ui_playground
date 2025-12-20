@@ -30,10 +30,10 @@ export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
         >
           <div
             className={`
-              max-w-[85%] px-4 py-3 rounded-2xl font-medium
+              max-w-[85%] sm:max-w-[80%] px-3 sm:px-4 py-2.5 rounded-2xl font-medium
               ${message.role === 'user'
-                ? 'bg-gradient-to-r from-[#FF6B9D]/20 to-[#B47EFF]/20 border-2 border-[#FF6B9D]/30 text-white'
-                : 'bg-[#252542]/80 border-2 border-[#4ECDC4]/20 text-white'
+                ? 'bg-primary/10 border border-primary/20 text-foreground'
+                : 'bg-muted border border-border text-foreground'
               }
             `}
           >
@@ -42,11 +42,11 @@ export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
               <span className="text-sm flex-shrink-0 mt-0.5">
                 {message.role === 'user' ? '👤' : '🤖'}
               </span>
-              <div>
+              <div className="min-w-0">
                 {message.role === 'user' ? (
-                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                  <p className="text-sm whitespace-pre-wrap break-words">{message.content}</p>
                 ) : (
-                  <p className="text-sm whitespace-pre-wrap">
+                  <p className="text-sm whitespace-pre-wrap break-words">
                     {message.chatMessage || (message.ui && message.ui.length > 0 ? '✨ UI generated! Check out the preview above.' : message.content)}
                   </p>
                 )}
@@ -58,16 +58,16 @@ export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
       
       {isLoading && (
         <div className="flex justify-start animate-fadeIn">
-          <div className="bg-[#252542]/80 border-2 border-[#B47EFF]/20 px-4 py-3 rounded-2xl">
+          <div className="bg-muted border border-border px-3 sm:px-4 py-2.5 rounded-2xl">
             <div className="flex items-center gap-3">
               <span className="text-sm">🎨</span>
               <div className="flex gap-1.5">
-                <span className="w-2.5 h-2.5 bg-[#FF6B9D] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                <span className="w-2.5 h-2.5 bg-[#B47EFF] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                <span className="w-2.5 h-2.5 bg-[#4ECDC4] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                <span className="w-2.5 h-2.5 bg-[#FFE66D] rounded-full animate-bounce" style={{ animationDelay: '450ms' }} />
+                <span className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                <span className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                <span className="w-2 h-2 bg-accent rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                <span className="w-2 h-2 bg-yellow-500 rounded-full animate-bounce" style={{ animationDelay: '450ms' }} />
               </div>
-              <span className="text-sm text-[#A0A0C0] font-medium">Creating magic...</span>
+              <span className="text-sm text-muted-foreground font-medium">Creating magic...</span>
             </div>
           </div>
         </div>
