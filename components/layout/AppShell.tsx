@@ -53,22 +53,13 @@ export function AppShell({ children }: AppShellProps) {
               {/* Title */}
               <div className="flex items-center gap-2 min-w-0">
                 <h1 className="text-base sm:text-lg font-bold truncate">
-                  <span className="gradient-text">UI Playground</span>
+                  <span className="gradient-text">Generative UI Playground</span>
                 </h1>
-                <span className="hidden sm:inline-flex px-1.5 py-0.5 text-[9px] font-bold bg-gradient-to-r from-[#FF6B9D] to-[#B47EFF] text-white rounded-full uppercase tracking-wider">
-                  Beta
-                </span>
               </div>
             </div>
 
             {/* Right side */}
             <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-              {/* Powered by badge - hidden on mobile */}
-              <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary/50 border border-border">
-                <span className="text-xs">✨</span>
-                <span className="text-xs text-muted-foreground">Powered by Gemini</span>
-              </div>
-              
               {/* Theme Toggle */}
               <ThemeToggle />
             </div>
