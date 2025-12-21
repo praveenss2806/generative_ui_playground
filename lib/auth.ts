@@ -7,10 +7,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  trustHost: true, // Required for Vercel deployment
   pages: {
     signIn: "/login",
   },
@@ -24,16 +25,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   events: {
-    async signIn({ user, isNewUser }) {
+    async signIn({ user }) {
       // Track login event
       if (user.id) {
-        await prisma.loginEvent.create({
-          data: {
-            userId: user.id,
-            // Note: To capture userAgent and IP, you'd need to pass them through
-            // a custom signIn callback or middleware. For now, we track basic events.
-          },
-        });
+        try {
+          await prisma.loginEvent.create({
+            data: {
+              userId: user.id,
+            },
+          });
+        } catch (error) {
+          console.error("Failed to log sign-in event:", error);
+        }
       }
     },
   },
