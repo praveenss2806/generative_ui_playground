@@ -21,6 +21,17 @@ export const metadata: Metadata = {
   description: "A playful generative UI playground powered by Gemini. Create dynamic interfaces using natural language.",
 };
 
+// Inline script to prevent flash of wrong theme
+const themeScript = `
+  (function() {
+    const stored = localStorage.getItem('ui-playground-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (stored === 'dark' || (!stored && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    }
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,6 +39,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body
         className={`${nunito.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
