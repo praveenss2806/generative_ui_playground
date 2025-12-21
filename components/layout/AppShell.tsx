@@ -2,6 +2,7 @@
 
 import { ReactNode } from 'react';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { UserMenu } from '@/components/auth/UserMenu';
 
 interface AppShellProps {
   children: ReactNode;
@@ -25,12 +26,13 @@ export function AppShell({ children }: AppShellProps) {
           style={{ background: 'linear-gradient(135deg, #4ECDC4 0%, #95E879 100%)' }}
         />
         
-        {/* Subtle dot pattern */}
+        {/* Grid pattern */}
         <div 
-          className="absolute inset-0 opacity-[0.015] dark:opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
           style={{
-            backgroundImage: 'radial-gradient(currentColor 1px, transparent 1px)',
-            backgroundSize: '24px 24px',
+            backgroundImage: `linear-gradient(var(--foreground) 1px, transparent 1px),
+                             linear-gradient(90deg, var(--foreground) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px'
           }}
         />
       </div>
@@ -62,6 +64,8 @@ export function AppShell({ children }: AppShellProps) {
             <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               {/* Theme Toggle */}
               <ThemeToggle />
+              {/* User Menu */}
+              <UserMenu />
             </div>
           </div>
         </div>
