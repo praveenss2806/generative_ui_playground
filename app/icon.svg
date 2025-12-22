@@ -1,0 +1,17 @@
+<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="favGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B9D" />
+      <stop offset="100%" stop-color="#B47EFF" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect x="0" y="0" width="32" height="32" rx="6" fill="#1A1A2E" />
+  
+  <!-- Three stacked bars - minimal UI -->
+  <rect x="6" y="7" width="20" height="4" rx="2" fill="url(#favGrad)" />
+  <rect x="6" y="14" width="14" height="4" rx="2" fill="#4ECDC4" />
+  <rect x="6" y="21" width="17" height="4" rx="2" fill="url(#favGrad)" opacity="0.6" />
+</svg>
+

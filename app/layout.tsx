@@ -21,12 +21,19 @@ export const metadata: Metadata = {
   description: "A playful generative UI playground powered by Gemini. Create dynamic interfaces using natural language.",
 };
 
-// Inline script to prevent flash of wrong theme
+export const viewport = {
+  viewportFit: 'cover' as const,
+};
+
+// Inline script to prevent flash of wrong theme (defaults to dark)
 const themeScript = `
   (function() {
     const stored = localStorage.getItem('ui-playground-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (stored === 'dark' || (!stored && prefersDark)) {
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    // Default to dark theme unless explicitly set to light or system prefers light
+    if (stored === 'light' || (!stored && prefersLight)) {
+      // Light mode - don't add dark class
+    } else {
       document.documentElement.classList.add('dark');
     }
   })();

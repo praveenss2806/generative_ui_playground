@@ -3,6 +3,7 @@
 import { ReactNode } from 'react';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { UserMenu } from '@/components/auth/UserMenu';
+import { Logo } from '@/components/layout/Logo';
 
 interface AppShellProps {
   children: ReactNode;
@@ -47,8 +48,8 @@ export function AppShell({ children }: AppShellProps) {
               {/* Logo */}
               <div className="relative group cursor-pointer flex-shrink-0">
                 <div className="absolute -inset-1 bg-gradient-to-r from-[#FF6B9D] via-[#B47EFF] to-[#4ECDC4] rounded-xl blur opacity-40 group-hover:opacity-60 transition-opacity duration-300" />
-                <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-card flex items-center justify-center border border-border overflow-hidden">
-                  <span className="text-base sm:text-lg">🎨</span>
+                <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-card flex items-center justify-center border border-border overflow-hidden p-1">
+                  <Logo size="md" />
                 </div>
               </div>
               

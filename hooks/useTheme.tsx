@@ -15,7 +15,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 const THEME_KEY = 'ui-playground-theme';
 
 function getInitialTheme(): Theme {
-  if (typeof window === 'undefined') return 'light';
+  if (typeof window === 'undefined') return 'dark';
   
   // Check localStorage first
   const stored = localStorage.getItem(THEME_KEY);
@@ -23,16 +23,16 @@ function getInitialTheme(): Theme {
     return stored;
   }
   
-  // Fall back to system preference
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    return 'dark';
+  // Fall back to system preference, default to dark if no preference
+  if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    return 'light';
   }
   
-  return 'light';
+  return 'dark';
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('light');
+  const [theme, setThemeState] = useState<Theme>('dark');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

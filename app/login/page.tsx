@@ -1,4 +1,5 @@
 import { SignInButton } from '@/components/auth/SignInButton';
+import { LogoLarge } from '@/components/layout/Logo';
 
 // Note: Redirect for authenticated users is handled by middleware
 export default function LoginPage() {
@@ -39,13 +40,13 @@ export default function LoginPage() {
           <div className="relative w-20 h-20 mx-auto mb-6">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple/20 rounded-2xl rotate-6 animate-pulse" />
             <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-green/20 rounded-2xl -rotate-6 animate-pulse" style={{ animationDelay: '0.5s' }} />
-            <div className="relative w-full h-full bg-card rounded-2xl flex items-center justify-center border border-border shadow-soft">
-              <span className="text-4xl">🎨</span>
+            <div className="relative w-full h-full bg-card rounded-2xl flex items-center justify-center border border-border shadow-soft p-3">
+              <LogoLarge />
             </div>
           </div>
           
           <h1 className="text-3xl font-bold mb-2">
-            <span className="gradient-text">UI Playground</span>
+            <span className="gradient-text">Generative UI Playground</span>
           </h1>
           <p className="text-muted-foreground">
             Generate beautiful interfaces with AI
@@ -63,24 +64,8 @@ export default function LoginPage() {
           </div>
 
           <SignInButton className="w-full" />
-
-          <div className="mt-6 pt-6 border-t border-border">
-            <p className="text-xs text-center text-muted-foreground">
-              By signing in, you agree to our{' '}
-              <span className="text-primary hover:underline cursor-pointer">Terms of Service</span>
-              {' '}and{' '}
-              <span className="text-primary hover:underline cursor-pointer">Privacy Policy</span>
-            </p>
-          </div>
         </div>
 
-        {/* Footer */}
-        <p 
-          className="text-center text-xs text-muted-foreground mt-8 animate-fadeIn"
-          style={{ animationDelay: '0.2s' }}
-        >
-          Powered by Gemini AI ✨
-        </p>
       </div>
     </div>
   );
