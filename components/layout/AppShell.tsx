@@ -11,11 +11,11 @@ interface AppShellProps {
 
 export function AppShell({ children }: AppShellProps) {
   return (
-    <div className="h-screen flex flex-col bg-background text-foreground overflow-hidden">
+    <div className="h-dvh flex flex-col bg-background text-foreground overflow-hidden">
       {/* Subtle background gradient */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
         {/* Light mode gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FEFCF9] via-[#FDF8F5] to-[#F8F4FF] dark:from-[#1A1A2E] dark:via-[#1E1E35] dark:to-[#1A1A2E]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#F8F6FF] via-[#FFF5F0] to-[#FFF0F5] dark:from-[#1A1A2E] dark:via-[#1E1E35] dark:to-[#1A1A2E]" />
         
         {/* Subtle decorative blobs - more visible in dark mode */}
         <div 

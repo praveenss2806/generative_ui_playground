@@ -126,7 +126,7 @@ export default function Home() {
         </div>
 
         {/* Bottom Command Bar */}
-        <div className="flex-shrink-0 pt-4 safe-bottom">
+        <div className="flex-shrink-0 pt-4 pb-4 safe-bottom">
           {/* Expandable Chat History */}
           {isChatExpanded && hasMessages && (
             <div className="mb-3 max-h-[35vh] overflow-y-auto rounded-xl bg-card border border-border shadow-soft-lg animate-slideUp">

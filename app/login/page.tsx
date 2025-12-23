@@ -1,11 +1,16 @@
 import { SignInButton } from '@/components/auth/SignInButton';
 import { LogoLarge } from '@/components/layout/Logo';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 // Note: Redirect for authenticated users is handled by middleware
 export default function LoginPage() {
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-background relative overflow-hidden">
+    <div className="min-h-dvh flex flex-col items-center justify-center bg-background relative overflow-hidden">
+      {/* Theme Toggle */}
+      <div className="absolute top-6 right-6 z-20">
+        <ThemeToggle />
+      </div>
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Gradient blobs */}

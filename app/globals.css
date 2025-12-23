@@ -80,24 +80,24 @@
 :root {
   --radius: 1rem;
   
-  /* Light mode - warm cream theme */
-  --background: #FEFCF9;
+  /* Light mode - vibrant playful theme */
+  --background: #F8F6FF;
   --foreground: #1A1A2E;
-  --card: #FFFFFF;
+  --card: #FFFBF8;
   --card-foreground: #1A1A2E;
-  --popover: #FFFFFF;
+  --popover: #FFFBF8;
   --popover-foreground: #1A1A2E;
   --primary: #FF6B9D;
   --primary-foreground: #FFFFFF;
-  --secondary: #F5F0FF;
-  --secondary-foreground: #6B4E9B;
-  --muted: #F8F6FC;
-  --muted-foreground: #6B6B8A;
+  --secondary: #FFF0F5;
+  --secondary-foreground: #8B4E7A;
+  --muted: #FFF5F0;
+  --muted-foreground: #7A6B8A;
   --accent: #4ECDC4;
   --accent-foreground: #FFFFFF;
   --destructive: #FF6B6B;
-  --border: rgba(180, 126, 255, 0.15);
-  --input: rgba(180, 126, 255, 0.08);
+  --border: rgba(255, 107, 157, 0.18);
+  --input: rgba(255, 140, 105, 0.1);
   --ring: #FF6B9D;
   
   /* Playful chart colors */
@@ -107,13 +107,13 @@
   --chart-4: #B47EFF;
   --chart-5: #95E879;
   
-  --sidebar: #FFFFFF;
+  --sidebar: #FFFBF8;
   --sidebar-foreground: #1A1A2E;
   --sidebar-primary: #FF6B9D;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F0E6FF;
-  --sidebar-accent-foreground: #6B4E9B;
-  --sidebar-border: rgba(180, 126, 255, 0.15);
+  --sidebar-accent: #FFE8F0;
+  --sidebar-accent-foreground: #8B4E7A;
+  --sidebar-border: rgba(255, 107, 157, 0.18);
   --sidebar-ring: #FF6B9D;
 }
 
@@ -645,14 +645,14 @@ code {
 
 .shadow-soft {
   box-shadow: 
-    0 1px 2px rgba(0, 0, 0, 0.04),
-    0 4px 12px rgba(0, 0, 0, 0.06);
+    0 1px 2px rgba(255, 107, 157, 0.06),
+    0 4px 12px rgba(180, 126, 255, 0.08);
 }
 
 .shadow-soft-lg {
   box-shadow: 
-    0 2px 4px rgba(0, 0, 0, 0.04),
-    0 8px 24px rgba(0, 0, 0, 0.08);
+    0 2px 4px rgba(255, 107, 157, 0.06),
+    0 8px 24px rgba(180, 126, 255, 0.12);
 }
 
 .shadow-playful {
@@ -740,9 +740,20 @@ code {
 
 /* Safe area for mobile */
 .safe-bottom {
-  padding-bottom: env(safe-area-inset-bottom, 0);
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 1rem);
 }
 
 .safe-top {
   padding-top: env(safe-area-inset-top, 0);
+}
+
+/* Dynamic viewport height for mobile browsers */
+.h-dvh {
+  height: 100vh;
+  height: 100dvh;
+}
+
+.min-h-dvh {
+  min-height: 100vh;
+  min-height: 100dvh;
 }
