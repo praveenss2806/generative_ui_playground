@@ -63,7 +63,7 @@ export function ChatInput({
       {/* Main container */}
       <div
         className={`
-          relative flex items-center gap-2 sm:gap-3 p-3 sm:p-3.5 rounded-2xl
+          relative flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-2xl
           bg-card border-2 transition-all duration-200
           ${isFocused ? 'border-primary/60 shadow-soft-lg' : 'border-border/80 shadow-soft'}
         `}
@@ -111,15 +111,15 @@ export function ChatInput({
             onKeyDown={handleKeyDown}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            placeholder={placeholder || "Describe the UI you want to create... (e.g., a dashboard, form, or card)"}
+            placeholder={placeholder || "Describe your UI..."}
             disabled={isLoading}
-            rows={2}
+            rows={1}
             className="
               w-full bg-transparent text-foreground placeholder-muted-foreground/60
               outline-none resize-none text-base font-medium
-              disabled:opacity-50 border-none focus:ring-0 min-h-[40px]
+              disabled:opacity-50 border-none focus:ring-0
             "
-            style={{ boxShadow: 'none', fontSize: '16px', lineHeight: '1.5', paddingTop: '8px', paddingBottom: '8px' }}
+            style={{ boxShadow: 'none', fontSize: '16px', lineHeight: '1.4', paddingTop: '4px', paddingBottom: '4px' }}
           />
         </div>
 
