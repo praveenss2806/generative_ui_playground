@@ -38,8 +38,8 @@ export default function Home() {
         {/* Sandbox Preview Area */}
         <div className="flex-1 min-h-0 flex flex-col">
           {isLoading && !hasUI ? (
-            /* Loading State */
-            <div className="flex-1 flex items-center justify-center">
+            /* Loading State - top aligned on mobile, centered on desktop */
+            <div className="flex-1 flex items-start sm:items-center justify-center pt-4 sm:pt-0 overflow-y-auto">
               <div className="w-full max-w-2xl mx-auto">
                 <div className="bg-card border border-border rounded-2xl p-4 sm:p-6 shadow-soft">
                   <UIRendererSkeleton />
@@ -70,7 +70,7 @@ export default function Home() {
                       </span>
                     )}
                   </div>
-                  
+
                   {/* Sandbox Content */}
                   <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-6">
                     <div className="max-w-4xl mx-auto">
@@ -92,14 +92,14 @@ export default function Home() {
                     <span className="text-5xl sm:text-6xl animate-bounce" style={{ animationDuration: '2s' }}>🚀</span>
                   </div>
                 </div>
-                
+
                 <h2 className="text-2xl sm:text-3xl font-bold mb-2">
                   <span className="gradient-text">Ready to Create?</span>
                 </h2>
                 <p className="text-muted-foreground mb-6 text-sm sm:text-base">
                   Describe any UI and watch it come to life! Try one of these ideas:
                 </p>
-                
+
                 {/* Suggestion pills - responsive grid */}
                 <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-3 justify-center">
                   {suggestions.map((suggestion, index) => (

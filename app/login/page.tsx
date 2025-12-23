@@ -1,34 +1,29 @@
 import { SignInButton } from '@/components/auth/SignInButton';
 import { LogoLarge } from '@/components/layout/Logo';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 // Note: Redirect for authenticated users is handled by middleware
 export default function LoginPage() {
 
   return (
     <div className="min-h-dvh flex flex-col items-center justify-center bg-background relative overflow-hidden">
-      {/* Theme Toggle */}
-      <div className="absolute top-6 right-6 z-20">
-        <ThemeToggle />
-      </div>
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Gradient blobs */}
-        <div 
+        <div
           className="absolute top-1/4 -left-32 w-96 h-96 rounded-full opacity-30 blur-3xl animate-blob"
           style={{ background: 'linear-gradient(135deg, #FF6B9D, #B47EFF)' }}
         />
-        <div 
+        <div
           className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full opacity-30 blur-3xl animate-blob"
           style={{ background: 'linear-gradient(135deg, #4ECDC4, #95E879)', animationDelay: '2s' }}
         />
-        <div 
+        <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
           style={{ background: 'radial-gradient(circle, #B47EFF 0%, transparent 70%)' }}
         />
-        
+
         {/* Grid pattern */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage: `linear-gradient(var(--foreground) 1px, transparent 1px),
@@ -49,7 +44,7 @@ export default function LoginPage() {
               <LogoLarge />
             </div>
           </div>
-          
+
           <h1 className="text-3xl font-bold mb-2">
             <span className="gradient-text">Generative UI Playground</span>
           </h1>
@@ -59,7 +54,7 @@ export default function LoginPage() {
         </div>
 
         {/* Sign In Card */}
-        <div 
+        <div
           className="bg-card border border-border rounded-3xl p-8 shadow-soft-lg animate-slideUp"
           style={{ animationDelay: '0.1s' }}
         >

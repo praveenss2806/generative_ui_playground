@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { UserMenu } from '@/components/auth/UserMenu';
 import { Logo } from '@/components/layout/Logo';
 
@@ -16,19 +15,19 @@ export function AppShell({ children }: AppShellProps) {
       <div className="fixed inset-0 -z-10 overflow-hidden">
         {/* Light mode gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#F8F6FF] via-[#FFF5F0] to-[#FFF0F5] dark:from-[#1A1A2E] dark:via-[#1E1E35] dark:to-[#1A1A2E]" />
-        
+
         {/* Subtle decorative blobs - more visible in dark mode */}
-        <div 
+        <div
           className="absolute top-[-20%] left-[-10%] w-[400px] h-[400px] rounded-full blur-[120px] opacity-20 dark:opacity-30"
           style={{ background: 'linear-gradient(135deg, #FF6B9D 0%, #B47EFF 100%)' }}
         />
-        <div 
+        <div
           className="absolute bottom-[-20%] right-[-10%] w-[400px] h-[400px] rounded-full blur-[120px] opacity-15 dark:opacity-25"
           style={{ background: 'linear-gradient(135deg, #4ECDC4 0%, #95E879 100%)' }}
         />
-        
+
         {/* Grid pattern */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
           style={{
             backgroundImage: `linear-gradient(var(--foreground) 1px, transparent 1px),
@@ -52,7 +51,7 @@ export function AppShell({ children }: AppShellProps) {
                   <Logo size="md" />
                 </div>
               </div>
-              
+
               {/* Title */}
               <div className="flex items-center gap-2 min-w-0">
                 <h1 className="text-base sm:text-lg font-bold truncate">
@@ -63,8 +62,6 @@ export function AppShell({ children }: AppShellProps) {
 
             {/* Right side */}
             <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-              {/* Theme Toggle */}
-              <ThemeToggle />
               {/* User Menu */}
               <UserMenu />
             </div>

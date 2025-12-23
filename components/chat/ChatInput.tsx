@@ -15,11 +15,11 @@ interface ChatInputProps {
   onToggleHistory?: () => void;
 }
 
-export function ChatInput({ 
-  value, 
-  onChange, 
-  onSubmit, 
-  isLoading, 
+export function ChatInput({
+  value,
+  onChange,
+  onSubmit,
+  isLoading,
   placeholder,
   hasMessages,
   messageCount = 0,
@@ -52,20 +52,20 @@ export function ChatInput({
   return (
     <div className="relative w-full max-w-full">
       {/* Glow effect on focus */}
-      <div 
+      <div
         className={`
           absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-primary via-purple-500 to-accent
           opacity-0 blur transition-opacity duration-300
           ${isFocused ? 'opacity-30' : ''}
         `}
       />
-      
+
       {/* Main container */}
-      <div 
+      <div
         className={`
-          relative flex items-end gap-2 sm:gap-3 p-3 sm:p-4 rounded-2xl
-          bg-card border transition-all duration-200
-          ${isFocused ? 'border-primary/50 shadow-soft-lg' : 'border-border shadow-soft'}
+          relative flex items-center gap-2 sm:gap-3 p-3 sm:p-3.5 rounded-2xl
+          bg-card border-2 transition-all duration-200
+          ${isFocused ? 'border-primary/60 shadow-soft-lg' : 'border-border/80 shadow-soft'}
         `}
       >
         {/* History toggle button */}
@@ -75,8 +75,8 @@ export function ChatInput({
             onClick={onToggleHistory}
             className={`
               flex-shrink-0 self-center relative p-1.5 rounded-lg transition-all duration-200
-              ${isHistoryExpanded 
-                ? 'bg-primary/10 text-primary' 
+              ${isHistoryExpanded
+                ? 'bg-primary/10 text-primary'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted'
               }
             `}
@@ -103,7 +103,7 @@ export function ChatInput({
         </div>
 
         {/* Textarea */}
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 flex items-center">
           <textarea
             ref={textareaRef}
             value={value}
@@ -111,29 +111,16 @@ export function ChatInput({
             onKeyDown={handleKeyDown}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            placeholder={placeholder || "What would you like me to create?"}
+            placeholder={placeholder || "Describe the UI you want to create... (e.g., a dashboard, form, or card)"}
             disabled={isLoading}
-            rows={1}
+            rows={2}
             className="
               w-full bg-transparent text-foreground placeholder-muted-foreground/60
-              outline-none resize-none text-sm sm:text-base leading-relaxed font-medium
-              disabled:opacity-50 border-none focus:ring-0
+              outline-none resize-none text-base font-medium
+              disabled:opacity-50 border-none focus:ring-0 min-h-[40px]
             "
-            style={{ boxShadow: 'none' }}
+            style={{ boxShadow: 'none', fontSize: '16px', lineHeight: '1.5', paddingTop: '8px', paddingBottom: '8px' }}
           />
-          
-          {/* Hint text - hidden on mobile */}
-          <div className={`
-            hidden sm:flex items-center gap-2 mt-2 overflow-hidden transition-all duration-200
-            ${isFocused && !hasContent ? 'max-h-6 opacity-100' : 'max-h-0 opacity-0'}
-          `}>
-            <span className="text-xs text-muted-foreground/60">Press</span>
-            <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded text-primary border border-border">Enter</kbd>
-            <span className="text-xs text-muted-foreground/60">to send</span>
-            <span className="text-muted-foreground/30 mx-1">•</span>
-            <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-muted rounded text-purple-500 border border-border">Shift + Enter</kbd>
-            <span className="text-xs text-muted-foreground/60">for new line</span>
-          </div>
         </div>
 
         {/* Send button */}
@@ -156,20 +143,20 @@ export function ChatInput({
               <span className="w-1.5 h-1.5 bg-accent rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
             </div>
           ) : (
-            <svg 
+            <svg
               className={`
                 w-5 h-5 transition-all duration-200
                 ${hasContent ? 'rotate-[-20deg]' : ''}
-              `} 
-              fill="none" 
-              viewBox="0 0 24 24" 
+              `}
+              fill="none"
+              viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2.5} 
-                d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" 
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
               />
             </svg>
           )}
