@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { UserMenu } from '@/components/auth/UserMenu';
 import { Logo } from '@/components/layout/Logo';
 
 interface AppShellProps {
@@ -62,8 +61,10 @@ export function AppShell({ children }: AppShellProps) {
 
             {/* Right side */}
             <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-              {/* User Menu */}
-              <UserMenu />
+              {/* Status pill to replace auth user menu */}
+              <div className="px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold border border-primary/30">
+                Generative Mode
+              </div>
             </div>
           </div>
         </div>
