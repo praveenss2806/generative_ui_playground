@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Gen UI Playground",
-  description: "A playful generative UI playground powered by Gemini. Create dynamic interfaces using natural language.",
+  description: "Adaptive Generative UI playground that turns user intent into live user interfaces.",
 };
 
 export const viewport = {
