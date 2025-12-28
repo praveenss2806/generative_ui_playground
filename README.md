@@ -1,133 +1,69 @@
-# Generative UI Application
+# Gen UI Playground
 
-A Next.js application that dynamically generates user interfaces using Gemini 2.5 Flash. Instead of pre-defined screens, the UI is created on-the-fly based on natural language conversations.
+An interactive Next.js playground that turns natural language prompts into live user interfaces using Gemini 2.5 Flash. Describe what you need, see the UI assemble in real time, and keep iterating through chat and interactions.
 
-## Features
+## What It Does
 
-- **Chat-Driven UI Generation**: Describe what you want, and the AI generates the interface
-- **Interactive Components**: Generated UIs are fully interactive - buttons, forms, tables, charts, and more
-- **Bidirectional Communication**: User interactions with the generated UI are fed back to the LLM, enabling contextual UI updates
-- **Rich Component Library**: 16+ component types including cards, forms, tables, charts, lists, tabs, grids, and more
-- **Beautiful Dark Theme**: Modern glass-morphism design with smooth animations
+- Chat-driven UI generation: prompts become component trees rendered on the fly.
+- Interactive updates: user actions are sent back to Gemini to evolve the UI.
+- Rich component set: forms, tables, charts, lists, grids, stats, alerts, tabs, images, and more.
+- Polished experience: animated dark theme, responsive layout, and inline chat history.
 
-## Getting Started
+## How It Works
 
-### Prerequisites
+1. You describe a UI in the chat.
+2. The API (`app/api/chat/route.ts`) calls Gemini 2.5 Flash with a schema-guided prompt (`lib/gemini-prompt.ts`, `lib/ui-schema.ts`).
+3. Gemini returns a JSON description of components plus optional follow-up messages.
+4. `useGenerativeUI` (hooks/useGenerativeUI.ts) manages chat state, calls the API, and forwards user interactions back to Gemini.
+5. `UIRenderer` (components/generative-ui/UIRenderer.tsx) maps the JSON schema to React components from the registry and renders them inside the app shell.
 
-- Node.js 18+
-- A Google AI Studio API key (for Gemini 2.5 Flash)
+## Architecture at a Glance
 
-### Installation
-
-1. Clone the repository and install dependencies:
-
-```bash
-npm install
+```
+Chat Input → Gemini (via API route) → UI JSON → UIRenderer → React components
+    ↑                                                  ↓
+    └─────────────── User interactions fed back to Gemini ────────────────┘
 ```
 
-2. Create a `.env.local` file in the root directory:
+## Key Files
 
-```bash
-GOOGLE_GENERATIVE_AI_API_KEY=your_api_key_here
-```
-
-Get your API key from [Google AI Studio](https://aistudio.google.com/apikey)
-
-3. Run the development server:
-
-```bash
-npm run dev
-```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-## Usage
-
-### Basic Examples
-
-Try these prompts to see the generative UI in action:
-
-- **"Create a contact form"** - Generates a form with name, email, and message fields
-- **"Show me a dashboard"** - Creates a dashboard with stats, charts, and recent activity
-- **"Build a todo list"** - Generates an interactive task list with add/delete functionality
-- **"Display a pricing table"** - Creates a comparison table with pricing tiers
-
-### Interaction Flow
-
-1. Type a message describing the UI you want
-2. The AI generates components based on your description
-3. Interact with the generated UI (click buttons, submit forms, etc.)
-4. Your interactions are automatically sent to the AI, which generates the next appropriate UI state
+- `app/layout.tsx`: root layout, metadata, fonts, theme bootstrap.
+- `app/page.tsx`: main experience; chat, empty/loading states, and preview shell.
+- `app/api/chat/route.ts`: server route that calls Gemini with the prompt + schema.
+- `hooks/useGenerativeUI.ts`: orchestrates chat, loading, errors, and interaction feedback.
+- `components/generative-ui/registry.ts`: maps schema component types to React components.
+- `components/generative-ui/UIRenderer.tsx`: renders component trees returned by Gemini.
+- `lib/ui-schema.ts`: Zod schemas defining the allowed component shapes.
+- `lib/gemini-prompt.ts`: system prompt steering Gemini’s responses.
 
 ## Component Types
 
-| Component | Description |
-|-----------|-------------|
-| `text` | Text display with variants (heading, body, caption, code) |
-| `card` | Container with title, content, and actions |
-| `button` | Interactive button with click handlers |
-| `form` | Input forms with various field types |
-| `table` | Data tables with pagination and row actions |
-| `chart` | Visualizations (bar, line, pie, doughnut) |
-| `list` | Lists with items and actions |
-| `tabs` | Tabbed interface with nested content |
-| `grid` | Grid layout (1-6 columns) |
-| `container` | Flex container for layout control |
-| `stat` | Statistics display with change indicators |
-| `alert` | Notifications (info, success, warning, error) |
-| `progress` | Progress bars |
-| `divider` | Visual separator |
-| `image` | Image display |
-| `empty` | Empty state placeholder |
-
-## Architecture
-
-```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│   Chat Input    │────▶│   Gemini API    │────▶│   JSON Schema   │
-└─────────────────┘     └─────────────────┘     └────────┬────────┘
-                                                         │
-                                                         ▼
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│  Interaction    │◀────│   Generated UI  │◀────│   UI Renderer   │
-│    Events       │     │   (React)       │     │                 │
-└────────┬────────┘     └─────────────────┘     └─────────────────┘
-         │
-         └──────────────────────────────────────────────▲
-                    (fed back to Gemini)
-```
+`text`, `card`, `button`, `form`, `table`, `chart`, `list`, `tabs`, `grid`, `container`, `stat`, `alert`, `progress`, `divider`, `image`, `empty`
 
 ## Tech Stack
 
-- **Framework**: Next.js 14+ with App Router
-- **AI Integration**: Vercel AI SDK with `@ai-sdk/google`
-- **Styling**: Tailwind CSS
-- **Type Safety**: TypeScript with Zod schemas
-- **Fonts**: DM Sans + JetBrains Mono
+- Next.js 14+ (App Router), TypeScript, Tailwind CSS
+- Vercel AI SDK with `@ai-sdk/google` (Gemini 2.5 Flash)
+- Zod for schema validation
 
-## Project Structure
+## Setup
 
-```
-├── app/
-│   ├── api/chat/route.ts    # Gemini API endpoint
-│   ├── layout.tsx           # Root layout
-│   ├── page.tsx             # Main page
-│   └── globals.css          # Global styles
-├── components/
-│   ├── chat/                # Chat interface components
-│   ├── generative-ui/       # UI rendering system
-│   │   ├── components/      # Renderable components
-│   │   ├── UIRenderer.tsx   # Component renderer
-│   │   └── registry.ts      # Component registry
-│   └── layout/              # Layout components
-├── lib/
-│   ├── ui-schema.ts         # TypeScript/Zod schemas
-│   ├── gemini-prompt.ts     # System prompt
-│   └── interaction-handler.ts
-└── hooks/
-    └── useGenerativeUI.ts   # Main hook
-```
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Add `.env.local`:
+   ```bash
+   GOOGLE_GENERATIVE_AI_API_KEY=your_api_key_here
+   ```
+   Get a key from [Google AI Studio](https://aistudio.google.com/apikey).
+3. Run the dev server:
+   ```bash
+   npm run dev
+   ```
+4. Open http://localhost:3000
 
-## License
+## Interaction Tips
 
-MIT
+- Try prompts like “Create a contact form”, “Show me a dashboard”, or “Build a todo app”.
+- Interact with generated UI elements; actions are sent back to Gemini to refine the layout.
