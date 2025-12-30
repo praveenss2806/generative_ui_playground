@@ -420,6 +420,12 @@ function FormRenderer({
   component: Extract<UIComponent, { type: 'form' }>;
   onAction: ActionHandler;
 }) {
+  // Guard against malformed form components missing a submit action
+  if (!component.submitAction) {
+    console.warn('Form component missing submitAction');
+    return null;
+  }
+
   const [formData, setFormData] = useState<Record<string, string | number | boolean>>(() => {
     const initial: Record<string, string | number | boolean> = {};
     component.fields.forEach((field) => {
